@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Android Monitor
+Comment=Live Android device telemetry over adb
+Exec=android-monitor
+Icon=android-monitor
+Terminal=false
+Categories=Development;Utility;
+StartupWMClass=android-monitor

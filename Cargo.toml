@@ -1,0 +1,46 @@
+[package]
+name = "android-monitor"
+version = "0.1.0"
+edition = "2021"
+description = "Live Android device telemetry over adb, with an MCP server"
+license = "MIT"
+build = "build.rs"
+
+[dependencies]
+gpui = "0.2.2"
+anyhow = "1"
+futures = "0.3"
+tiny-skia = "0.11"
+ab_glyph = "0.2"
+serde_json = "1"
+
+[target.'cfg(windows)'.build-dependencies]
+winresource = "0.1"
+
+[profile.release]
+lto = "thin"
+codegen-units = 4
+strip = true
+
+[package.metadata.deb]
+name = "android-monitor"
+maintainer = "Android Monitor contributors"
+section = "utils"
+priority = "optional"
+depends = "$auto, adb"
+extended-description = "Live CPU, memory, network, battery and storage telemetry for a connected Android device, plus an MCP server."
+assets = [
+    ["target/release/android-monitor", "usr/bin/", "755"],
+    ["packaging/linux/android-monitor.desktop", "usr/share/applications/", "644"],
+    ["assets/icons/16x16.png", "usr/share/icons/hicolor/16x16/apps/android-monitor.png", "644"],
+    ["assets/icons/32x32.png", "usr/share/icons/hicolor/32x32/apps/android-monitor.png", "644"],
+    ["assets/icons/48x48.png", "usr/share/icons/hicolor/48x48/apps/android-monitor.png", "644"],
+    ["assets/icons/64x64.png", "usr/share/icons/hicolor/64x64/apps/android-monitor.png", "644"],
+    ["assets/icons/128x128.png", "usr/share/icons/hicolor/128x128/apps/android-monitor.png", "644"],
+    ["assets/icons/256x256.png", "usr/share/icons/hicolor/256x256/apps/android-monitor.png", "644"],
+    ["assets/icons/512x512.png", "usr/share/icons/hicolor/512x512/apps/android-monitor.png", "644"],
+    ["README.md", "usr/share/doc/android-monitor/README", "644"],
+]
+
+[patch.crates-io]
+xattr = { path = "patches/xattr" }
